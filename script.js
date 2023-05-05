@@ -49,28 +49,28 @@ function rockPaperScissors(playerSelection) {
     }
 }
 
-function game() {
-    let score = 0;
-    for (i = 0; i < 5; i++) {
-        playerSelection = prompt();
-        let round = rockPaperScissors(playerSelection);
-        console.log(round);
-        if (round.includes("You Win!")) {
-            score++;
-        }
-        else if (round.includes("You Lose!")) {
-            score--;
-        }
+const buttons = document.querySelectorAll('button');
+const results = document.querySelector('.results');
+const playerscore = document.querySelector('.playerscore');
+const computerscore = document.querySelector('.computerscore');
+const winner = document.querySelector('.winner');
+let scoreNumber = 0;
+let computerscoreNumber = 0;
+buttons.forEach(btn => btn.addEventListener('click', function(e) {
+    let round = rockPaperScissors(e.target.firstChild.data)
+    results.textContent = round;
+    if (round.includes("You Win!")) {
+        scoreNumber++;
     }
-    if (score > 0) {
-        console.log("You Win!");
+    else if (round.includes("You Lose!")) {
+        computerscoreNumber++;
     }
-    else if (score < 0) {
-        console.log("You Lose!");
+    playerscore.textContent = scoreNumber;
+    computerscore.textContent = computerscoreNumber;
+    if (scoreNumber == 5) {
+        winner.textContent = "You Win!";
     }
-    else {
-        console.log("It's a Tie!");
+    else if (computerscoreNumber == 5) {
+        winner.textContent = "You Lose!";
     }
-    
-
-}
+}));
